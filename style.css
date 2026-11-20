@@ -6,5 +6,48 @@ h1,h2,h3{margin:0;line-height:1.07;letter-spacing:-.035em}h1{font-size:clamp(2.7
 footer{background:var(--ink);color:var(--paper);border-top:6px solid var(--gold)}.foot{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding-block:3rem}.foot h2{font-size:1.75rem;margin-bottom:.7rem}.foot address{font-style:normal}.foot nav{margin-top:1.2rem}.social-links{display:flex;flex-wrap:wrap;gap:.7rem}.social-links a{display:inline-flex;gap:.55rem;align-items:center;text-decoration:none;border:1px solid #7994a5;border-radius:999px;padding:.48rem .8rem;font-weight:750}.social-links a:hover{background:#26465e}.social-links svg{width:20px;height:20px;flex:none}
 @media(max-width:900px){.wrap{width:calc(100% - 40px)}.top{align-items:flex-start;flex-direction:column;justify-content:center;gap:.45rem;padding-block:.55rem 1rem}.split{gap:1.75rem}.hero .wrap{padding-block:3rem}}@media(max-width:640px){.wrap{width:calc(100% - 32px)}.split,.foot,.grid{grid-template-columns:1fr}.brand img{width:72px;height:72px}.home .brand img{width:88px;height:88px}.hero .wrap,.inner .wrap{padding-block:2.5rem}.campaign img{max-width:250px}.photo{margin-right:10px}.stats{gap:.55rem}.stats div{padding-left:.45rem}.stats span{font-size:.81rem}.wrap:is(section){padding-block:2.65rem}}
 .editor{padding-block:2rem}.editor h1{font-size:clamp(2.5rem,5vw,4rem)}.editor form:not([hidden]){margin-top:1rem}.editor button{border:0;cursor:pointer}.editor input,.editor select,.editor textarea{padding:.55rem;font:inherit;border:1px solid #879e8a;border-radius:4px;background:white;color:var(--ink)}.editor details{margin:1rem 0;padding:1rem;background:var(--mist)}.editor summary{cursor:pointer;font-weight:bold}.editor details label{display:block;margin-top:.9rem}.editor details input,.editor textarea{width:100%;display:block}.editor textarea{min-height:5rem}
-.outreach{grid-template-columns:repeat(3,minmax(0,1fr))}.outreach article{display:flex;flex-direction:column;align-items:flex-start;gap:.55rem}.outreach img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:.45rem}@media(max-width:800px){.outreach{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.outreach{grid-template-columns:1fr}}
+.outreach{grid-template-columns:repeat(3,minmax(0,1fr))}.outreach article{display:flex;flex-direction:column;align-items:flex-start;gap:.55rem}.outreach-photo{width:100%;aspect-ratio:3/4;overflow:hidden;margin-bottom:.45rem}
+.outreach-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.outreach-photo img[src="outreach-online-safety.jpg"]{transform:scale(1.9)}@media(max-width:800px){.outreach{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.outreach{grid-template-columns:1fr}}
 
+
+/* Keep each bank transfer label aligned with its value. */
+.donation-details {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.65rem 1.5rem;
+  max-width: 38rem;
+  margin: 1rem 0;
+  padding: 1.25rem;
+  border: 1px solid #d6e1e4;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+.donation-details dt { font-weight: 700; }
+.donation-details dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) {
+  .donation-details { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
+  .donation-details dd + dt { margin-top: 0.6rem; }
+}
+
+.contact-page { padding-block:clamp(2rem,5vw,4rem); }
+.contact-page > h1 { margin-bottom:1.5rem; }
+.contact-layout { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(0,1fr); gap:1.25rem; align-items:start; }
+.contact-office, .contact-map { padding:clamp(1.25rem,3vw,2rem); border:1px solid #d6e1e4; border-radius:1rem; background:#fff; }
+.contact-office { background:#eaf2f3; overflow-wrap:anywhere; }
+.contact-layout h2 { font-size:clamp(1.5rem,3vw,2rem); margin-bottom:.9rem; }
+.contact-map iframe { display:block; border:0; border-radius:.65rem; }
+.contact-map p:last-child { margin-bottom:0; }
+@media (max-width:760px) {
+  .contact-layout { grid-template-columns:1fr; }
+  .contact-office { grid-row:1; }
+  .contact-map iframe { height:300px; }
+}
+.contact-message { max-width:46rem; margin-top:1.5rem; padding:clamp(1.25rem,3vw,2rem); border:1px solid #d6e1e4; border-radius:1rem; background:#fff; }
+.contact-message h2 { font-size:clamp(1.5rem,3vw,2rem); }
+.contact-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.contact-message label { display:grid; gap:.35rem; margin-bottom:1rem; font-weight:700; }
+.contact-message input, .contact-message textarea { width:100%; padding:.65rem; font:inherit; font-weight:400; border:1px solid #82919a; border-radius:.45rem; }
+.contact-message textarea { resize:vertical; }
+.contact-message button { border:0; font:inherit; font-weight:700; cursor:pointer; }
+@media (max-width:560px) { .contact-fields { grid-template-columns:1fr; gap:0; } }
