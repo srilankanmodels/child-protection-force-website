@@ -261,3 +261,113 @@ footer{background:var(--ink);color:var(--paper);border-top:6px solid var(--gold)
     display: none;
   }
 }
+
+.hero-artwork {
+  position: relative;
+}
+.hero-artwork > img {
+  display: block;
+}
+.hero-gestures {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hero-blink,
+.hero-talk {
+  opacity: 0;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+.hero-blink path:last-child {
+  fill: none;
+  stroke: #000;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.hero-blink-first { animation-name: hero-blink-first; }
+.hero-blink-fourth { animation-name: hero-blink-fourth; }
+.hero-talk-second { animation-name: hero-talk-second; }
+.hero-talk-third { animation-name: hero-talk-third; }
+
+@keyframes hero-blink-first {
+  0%, 9%, 11%, 100% { opacity: 0; }
+  9.5%, 10.5% { opacity: 1; }
+}
+@keyframes hero-blink-fourth {
+  0%, 36%, 38%, 100% { opacity: 0; }
+  36.5%, 37.5% { opacity: 1; }
+}
+@keyframes hero-talk-second {
+  0%, 16%, 20%, 23%, 27%, 100% { opacity: 0; }
+  17%, 19%, 24%, 26% { opacity: 1; }
+}
+@keyframes hero-talk-third {
+  0%, 29%, 33%, 35%, 39%, 100% { opacity: 0; }
+  30%, 32%, 36%, 38% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-gestures { display: none; }
+}
+
+.hero-hand {
+  opacity: 0;
+  animation: hero-hand-appear 10s infinite;
+}
+.hero-hand-motion {
+  transform-origin: 1171px 951px;
+  animation: hero-hand-gesture 10s infinite;
+}
+@keyframes hero-hand-appear {
+  0%, 13%, 39%, 100% { opacity: 0; }
+  15%, 37% { opacity: 1; }
+}
+@keyframes hero-hand-gesture {
+  0%, 15%, 37%, 100% { transform: rotate(0deg); }
+  21%, 30% { transform: rotate(55deg); }
+  26% { transform: rotate(30deg); }
+}
+
+.hero-rainbow-light,
+.hero-sun-light {
+  opacity: 0;
+  animation: hero-sky-light 10s infinite;
+}
+.hero-rainbow-light {
+  filter: saturate(1.65);
+}
+.hero-sun-light {
+  filter: saturate(1.5);
+  animation-name: hero-sun-light;
+}
+@keyframes hero-sky-light {
+  0%, 43%, 100% { opacity: 0; }
+  20% { opacity: .72; }
+}
+@keyframes hero-sun-light {
+  0%, 44%, 100% { opacity: 0; }
+  30% { opacity: .85; }
+}
+
+.hero-sun-rays {
+  opacity: 0;
+  transform-origin: 1855px 392px;
+  animation: hero-rays-spread 10s infinite;
+}
+.hero-rainbow-glint {
+  opacity: 0;
+  stroke-dasharray: 18 100;
+  animation: hero-glint-sweep 10s infinite;
+}
+@keyframes hero-rays-spread {
+  0%, 9%, 44%, 100% { opacity: 0; transform: scale(.95); }
+  28% { opacity: .85; transform: scale(1.13); }
+}
+@keyframes hero-glint-sweep {
+  0%, 8% { opacity: 0; stroke-dashoffset: 18; }
+  14% { opacity: .9; }
+  34% { opacity: .9; }
+  42%, 100% { opacity: 0; stroke-dashoffset: -92; }
+}

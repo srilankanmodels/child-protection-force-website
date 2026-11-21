@@ -27,7 +27,43 @@ office_map=(
 )
 
 home='''<section class="hero"><div class="wrap split"><div><p class="eyebrow">CHILD PROTECTION IN SRI LANKA</p><h1>Safety, care and access to justice</h1><p>Child Protection Force supports children and women who have survived crime through legal aid, emergency shelter and trauma-informed care.</p><div class="actions"><a class="btn" href="services.html">Find support</a><a class="outline btn" href="donate.html">Support the work</a></div></div><div class="hero-visual">
-  <div class="photo"><img src="story.png" alt="Artwork of four children beneath a rainbow"></div>
+  <div class="photo hero-artwork">
+    <img src="story.png" alt="Artwork of four children beneath a rainbow">
+    <svg class="hero-gestures" viewBox="0 0 2560 1044" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <clipPath id="hero-rainbow-area"><rect x="638" y="272" width="350" height="312"/></clipPath>
+        <clipPath id="hero-sun-area"><rect x="1707" y="271" width="309" height="229"/></clipPath>
+      </defs>
+      <image class="hero-rainbow-light" href="story.png" width="2560" height="1044" clip-path="url(#hero-rainbow-area)"/>
+      <image class="hero-sun-light" href="story.png" width="2560" height="1044" clip-path="url(#hero-sun-area)"/>
+      <g class="hero-sun-rays" fill="none" stroke="#ffac37" stroke-width="8" stroke-linecap="round">
+        <path d="M1760 305l-13-19 M1833 290l4-24 M1911 319l18-18 M1969 388l24-5"/>
+      </g>
+      <path class="hero-rainbow-glint" d="M676 426C685 352 736 301 800 294c42-5 83 6 115 30"
+            fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" pathLength="100"/>
+      <g class="hero-blink hero-blink-first">
+        <path fill="white" d="M909 769h33v42h-33z M1002 769h34v42h-34z"/>
+        <path d="M916 790q9 5 18 0m75 0q9 5 18 0"/>
+      </g>
+      <g class="hero-blink hero-blink-fourth">
+        <path fill="white" d="M1657 771h33v42h-33z M1752 771h35v42h-35z"/>
+        <path d="M1664 792q9 5 18 0m77 0q9 5 18 0"/>
+      </g>
+      <g class="hero-hand">
+        <path fill="white" d="M1157 959h28v16h-28z"/>
+        <path class="hero-hand-motion" fill="white" stroke="black" stroke-width="5" stroke-linejoin="round"
+              d="M1163 949q-5 6-4 13 1 8 8 8 8 0 11-8l3-10z"/>
+      </g>
+      <g class="hero-talk hero-talk-second">
+        <path fill="white" d="M1203 820h48v24h-48z"/>
+        <ellipse cx="1227" cy="831" rx="11" ry="6" fill="black"/>
+      </g>
+      <g class="hero-talk hero-talk-third">
+        <path fill="white" d="M1450 818h50v27h-50z"/>
+        <ellipse cx="1475" cy="830" rx="10" ry="6" fill="black"/>
+      </g>
+    </svg>
+  </div>
   <div class="hero-logo" aria-hidden="true"><img src="logo.png" alt="" width="1658" height="1658"></div>
 </div></div></section>
 <div class="impact"><div class="wrap stats"><div><strong>200+</strong><span>Legal representations annually</span></div><div><strong>800+</strong><span>State officers trained since 2018</span></div><div><strong>2017</strong><span>Child Protection Force founded</span></div></div></div>'''
@@ -145,7 +181,7 @@ for key,(title,body) in pages.items():
  footer_menu=''.join(a(label,url+'.html') for label,url in nav if url!='donate')
  search_title, search_description = search_metadata[key]
  canonical = canonical_url(key)
- stylesheet = "style.css?v=11" if key == "index" else "style.css?v=10"
+ stylesheet = "style.css?v=15" if key == "index" else "style.css?v=10"
  (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(search_title)}</title><meta name="description" content="{escape(search_description)}"><link rel="canonical" href="{canonical}"><link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"><link rel="stylesheet" href="{stylesheet}"><script src="/analytics.js" defer></script><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer class="site-footer" id="site-footer">
 <div class="wrap footer-main">
   <div class="footer-brand">
