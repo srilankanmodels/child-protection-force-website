@@ -3,7 +3,7 @@ from html import escape
 from urllib.parse import quote_plus
 P=Path(__file__).resolve().parent
 BASE='https://www.childprotectionforce.org/'
-nav=[('About','about'),('Services','services'),('Our causes','causes'),('Team','team'),('Media','media'),('Contact','contact'),('Donate','donate')]
+nav=[('About','about'),('Services','services'),('Our causes','causes'),('Team','team'),('Media','media'),('Contact','contact'),('Volunteer','volunteer'),('Donate','donate')]
 def a(label, path, cls=''):
  return f'<a class="{cls}" href="{path}">{escape(label)}</a>'
 def cards(rows):
@@ -28,7 +28,7 @@ office_map=(
 
 home='''<section class="hero"><div class="wrap split"><div><p class="eyebrow">CHILD PROTECTION IN SRI LANKA</p><h1>Safety, care and access to justice</h1><p>Child Protection Force supports children and women who have survived crime through legal aid, emergency shelter and trauma-informed care.</p><div class="actions"><a class="btn" href="services.html">Find support</a><a class="outline btn" href="donate.html">Support the work</a></div></div><div class="photo"><img src="story.png" alt="Child Protection Force programme photography"></div></div></section>
 <div class="impact"><div class="wrap stats"><div><strong>200+</strong><span>Legal representations annually</span></div><div><strong>800+</strong><span>State officers trained since 2018</span></div><div><strong>2017</strong><span>Child Protection Force founded</span></div></div></div>'''
-home+=section('How we help',cards(services)+a('Explore our services','services.html','textlink'))+section('Ways to get involved',cards(volunteer)+a('Giving and volunteering','donate.html','textlink'))
+home+=section('How we help',cards(services)+a('Explore our services','services.html','textlink'))+section('Ways to get involved',cards(volunteer)+a('Explore volunteering','volunteer.html','textlink'))
 update='<div class="split campaign"><img src="dance-fit.jpg" alt="Dance Fit Throwback 2026 event poster"><div><h3>Dance Fit Throwback 2026</h3><p>Dance fitness with Candice and Mihiri and music by DJ Niranjan, in aid of Child Protection Force.</p><p>21 November 2026 · 5–9 p.m.<br>Earl’s Court, Cinnamon Lakeside</p><p>No dance experience needed. Join at your own pace. Minimum contribution LKR 2,500, with all proceeds going to Child Protection Force.</p>'+a('Watch the Instagram reel','https://www.instagram.com/reel/Df4IBm3N2e2/','btn')+'</div></div>'
 social='<div class="grid social-updates"><article><h3>Dance Fit Throwback on Instagram</h3><p>See the event announcement and the latest video from Child Protection Force.</p><p>'+a('View the event post','https://www.instagram.com/childprotectionforce.sl/p/DfPPYa2ChC4/')+' · '+a('Watch on Instagram','https://www.instagram.com/childprotectionforce.sl/reel/Df6ZkkwuRyt/')+'</p></article><article><h3>Dance Fit Throwback on Facebook</h3><p>Preview the fundraiser and see the organization’s thank-you to its radio partner.</p><p>'+a('Watch on Facebook','https://www.facebook.com/reel/2627436527731402/')+' · '+a('See the partner post','https://www.facebook.com/childprotectionforce/posts/pfbid02Yz9ixVXJXkrsokNAjhi9YRcGctmT43MQ8tJg6w4APYhj5r4PcxYiLKWvQDM7miKol')+'</p></article></div>'
 home+=section('Community updates',update+social).replace('<section class="wrap">','<section class="wrap" id="community-updates">',1)
@@ -46,7 +46,49 @@ donation_confirmation=(
  '<button class="btn" type="submit">Open confirmation email</button>'
  '</form></div><script src="donation.js" defer></script>'
 )
+volunteer_form = """
+<div class="volunteer-application">
+  <aside>
+    <h3>Tell us how you can help</h3>
+    <p>Share your interests and availability so the team can discuss where your skills might fit.</p>
+    <p>Please leave out case details and other sensitive information.</p>
+  </aside>
+  <form id="contact-form" class="volunteer-form" action="mailto:kanchana@childprotectionforce.org"
+        data-subject="Child Protection Force volunteer enquiry">
+    <div class="volunteer-fields">
+      <label>Full name <input name="name" autocomplete="name" required maxlength="120"></label>
+      <label>Email address <input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+      <label>Area of interest
+        <select name="interest" required>
+          <option value="">Choose an area</option>
+          <option>Legal and translation support</option>
+          <option>Psychosocial support</option>
+          <option>Media and communications</option>
+          <option>Fundraising and events</option>
+          <option>Administration</option>
+          <option>Other or open to suggestions</option>
+        </select>
+      </label>
+      <label>Mobile or WhatsApp number (optional)
+        <input name="phone" type="tel" autocomplete="tel" maxlength="32">
+      </label>
+      <label>Availability (optional)
+        <input name="availability" placeholder="e.g. weekdays, 9 a.m. to 3 p.m." maxlength="160">
+      </label>
+    </div>
+    <label>Relevant skills or experience (optional)
+      <textarea name="message" rows="4" maxlength="1500"></textarea>
+    </label>
+    <button class="btn" type="submit">Prepare volunteer enquiry</button>
+    <small>Your email app opens with a draft for our team. Review it and press Send.</small>
+  </form>
+</div>
+<script src="contact.js" defer></script>
+"""
 pages={
+'volunteer': ('Volunteer', sub('Volunteer with Child Protection Force',
+ 'Share your time and skills to support children and families in Sri Lanka.',
+ section('Ways to help', cards(volunteer)) + section('Tell us about yourself', volunteer_form))),
 'index':('Home',home),
 'about':('About',sub('About Child Protection Force','A Sri Lankan nonprofit founded in 2017 by attorney-at-law Milani Salpitikorala.',section('Our story','<p>We work with law enforcement, child protection officers, educators and communities to help survivors access immediate care and long-term justice.</p>'+cards([('Mission','Protect and empower survivors through trauma-informed care, justice and reintegration.'),('Vision','A Sri Lanka where every child is safe, survivors are heard and justice is swift and compassionate.'),('Values','The best interests of children, education, survivor-centered practice, collaboration and accountability. The organization draws on the UN Convention on the Rights of the Child and Northern Ireland Principles.')])+a('Meet our team','team.html','textlink')))),
 'services':('Services',sub('Our services','Support for children and women who have survived crime.',section('Care and representation',cards(services)+a('Contact Child Protection Force','contact.html','btn')))),
@@ -71,7 +113,7 @@ pages={
  '<button class="btn" type="submit">Open email draft</button>'
  '</form></section>'
  '</div><script src="contact.js" defer></script>'),
-'donate':('Donate',sub('Support Child Protection Force','Give, volunteer or organize a fundraiser.',section('Make a donation','<h3>Bank transfer</h3><dl class="donation-details"><dt>Account name</dt><dd>Child Protection Force</dd><dt>Bank</dt><dd>Nations Trust Bank PLC, Battaramulla branch</dd><dt>Account number</dt><dd>1001 5000 3460</dd><dt>SWIFT code</dt><dd>NTBCLKLX</dd></dl>'+donation_confirmation)+section('What your gift can support',cards(causes))+section('Give supplies or volunteer','<p>In-kind donations can include dry rations, fresh produce, toiletries, baby formula, diapers, clothing and educational materials.</p><p>'+a('Email Safe House Meththa','mailto:meththa@childprotectionforce.org')+' · '+a('Call Kanchana','tel:+94773094366')+'</p>'+cards(volunteer)+'<p>'+a('Ask about volunteering or fundraising','mailto:kanchana@childprotectionforce.org')+'</p>')))}
+'donate':('Donate',sub('Support Child Protection Force','Give, volunteer or organize a fundraiser.',section('Make a donation','<h3>Bank transfer</h3><dl class="donation-details"><dt>Account name</dt><dd>Child Protection Force</dd><dt>Bank</dt><dd>Nations Trust Bank PLC, Battaramulla branch</dd><dt>Account number</dt><dd>1001 5000 3460</dd><dt>SWIFT code</dt><dd>NTBCLKLX</dd></dl>'+donation_confirmation)+section('What your gift can support',cards(causes))+section('Give supplies or volunteer','<p>In-kind donations can include dry rations, fresh produce, toiletries, baby formula, diapers, clothing and educational materials.</p><p>'+a('Email Safe House Meththa','mailto:meththa@childprotectionforce.org')+' · '+a('Call Kanchana','tel:+94773094366')+'</p>'+cards(volunteer)+'<p>'+a('Tell us how you’d like to volunteer','volunteer.html')+'</p>')))}
 programme_posts=[
  ('Kelaniya school principals','Highlights from a child protection awareness programme for school principals in the Kelaniya Zone.','DfUY958tVQG'),
  ('Child protection and online safety','An awareness session for parents of Montessori children during World Children’s Month.','DejQbzHjuVe'),
@@ -89,6 +131,7 @@ search_metadata = {
  'team': ('Our Team | Child Protection Force Sri Lanka', 'Meet the board and founding members of Child Protection Force and learn about the team behind its work in Sri Lanka.'),
  'media': ('Media and Publications | Child Protection Force Sri Lanka', 'Explore news, publications, campaign updates, and child protection training and outreach from Child Protection Force.'),
  'contact': ('Contact Child Protection Force | Battaramulla, Sri Lanka', 'Contact Child Protection Force in Battaramulla. Find office directions, telephone numbers, email addresses, and an enquiry form.'),
+ 'volunteer': ('Volunteer | Child Protection Force Sri Lanka', 'Find ways to volunteer with Child Protection Force and tell the team how you would like to help.'),
  'donate': ('Donate to Child Protection Force Sri Lanka', 'Support child protection in Sri Lanka. Find bank transfer details, confirm a donation, give supplies, or volunteer with Child Protection Force.'),
 }
 def canonical_url(key):
@@ -96,10 +139,32 @@ def canonical_url(key):
 
 for key,(title,body) in pages.items():
  menu=''.join(a(label,url+'.html','btn' if url=='donate' else '') for label,url in nav)
+ footer_menu=''.join(a(label,url+'.html') for label,url in nav if url!='donate')
  search_title, search_description = search_metadata[key]
  canonical = canonical_url(key)
- stylesheet = "style.css?v=8" if key in ("contact", "donate") else "style.css?v=5" if key in ("index", "services", "media") else "style.css"
- (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(search_title)}</title><meta name="description" content="{escape(search_description)}"><link rel="canonical" href="{canonical}"><link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"><link rel="stylesheet" href="{stylesheet}"><script src="/analytics.js" defer></script><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer><div class="wrap foot"><div><h2>Child Protection Force</h2>{contact}</div><div><h3>Explore</h3><p class="social-links"><a class="social-instagram" href="https://www.instagram.com/childprotectionforce.sl/"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a> <a class="social-facebook" href="https://www.facebook.com/childprotectionforce/"><svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M14 22v-9h3l.45-3.5H14V7.3c0-1 .26-1.65 1.72-1.65h1.83V2.5a24 24 0 0 0-2.67-.14c-2.64 0-4.45 1.61-4.45 4.58V9.5H7.45V13h2.98v9z"/></svg>Facebook</a></p><nav aria-label="Footer navigation">{menu}</nav><button type="button" id="analytics-preference" hidden>Analytics preferences</button></div></div></footer></body></html>''')
+ stylesheet = "style.css?v=10"
+ (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(search_title)}</title><meta name="description" content="{escape(search_description)}"><link rel="canonical" href="{canonical}"><link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"><link rel="stylesheet" href="{stylesheet}"><script src="/analytics.js" defer></script><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer class="site-footer" id="site-footer">
+<div class="wrap footer-main">
+  <div class="footer-brand">
+    <a href="index.html" class="footer-wordmark"><img src="logo.png" alt="" width="56" height="56"><span>Child Protection<br>Force</span></a>
+    <p>Legal aid, safe shelter and trauma-informed care in Sri Lanka.</p>
+    <p class="social-links"><a class="social-instagram" href="https://www.instagram.com/childprotectionforce.sl/"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a> <a class="social-facebook" href="https://www.facebook.com/childprotectionforce/"><svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M14 22v-9h3l.45-3.5H14V7.3c0-1 .26-1.65 1.72-1.65h1.83V2.5a24 24 0 0 0-2.67-.14c-2.64 0-4.45 1.61-4.45 4.58V9.5H7.45V13h2.98v9z"/></svg>Facebook</a></p>
+  </div>
+  <div class="footer-explore">
+    <h2>Explore</h2>
+    <nav aria-label="Footer navigation">{footer_menu}</nav>
+  </div>
+  <div class="footer-contact">
+    <h2>Contact us</h2>
+    {contact}
+  </div>
+</div>
+<div class="wrap footer-bottom">
+  <small>© Child Protection Force</small>
+  <button type="button" id="analytics-preference" hidden>Analytics preferences</button>
+  <a class="btn" href="donate.html">Support our work</a>
+</div>
+</footer></body></html>''')
 
 (P/'sitemap.xml').write_text(
  '<?xml version="1.0" encoding="UTF-8"?>\n'
