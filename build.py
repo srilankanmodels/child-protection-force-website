@@ -26,7 +26,10 @@ office_map=(
  f'<p><a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination={office_map_query}">Get directions in Google Maps</a></p>'
 )
 
-home='''<section class="hero"><div class="wrap split"><div><p class="eyebrow">CHILD PROTECTION IN SRI LANKA</p><h1>Safety, care and access to justice</h1><p>Child Protection Force supports children and women who have survived crime through legal aid, emergency shelter and trauma-informed care.</p><div class="actions"><a class="btn" href="services.html">Find support</a><a class="outline btn" href="donate.html">Support the work</a></div></div><div class="photo"><img src="story.png" alt="Child Protection Force programme photography"></div></div></section>
+home='''<section class="hero"><div class="wrap split"><div><p class="eyebrow">CHILD PROTECTION IN SRI LANKA</p><h1>Safety, care and access to justice</h1><p>Child Protection Force supports children and women who have survived crime through legal aid, emergency shelter and trauma-informed care.</p><div class="actions"><a class="btn" href="services.html">Find support</a><a class="outline btn" href="donate.html">Support the work</a></div></div><div class="hero-visual">
+  <div class="photo"><img src="story.png" alt="Artwork of four children beneath a rainbow"></div>
+  <div class="hero-logo" aria-hidden="true"><img src="logo.png" alt="" width="1658" height="1658"></div>
+</div></div></section>
 <div class="impact"><div class="wrap stats"><div><strong>200+</strong><span>Legal representations annually</span></div><div><strong>800+</strong><span>State officers trained since 2018</span></div><div><strong>2017</strong><span>Child Protection Force founded</span></div></div></div>'''
 home+=section('How we help',cards(services)+a('Explore our services','services.html','textlink'))+section('Ways to get involved',cards(volunteer)+a('Explore volunteering','volunteer.html','textlink'))
 update='<div class="split campaign"><img src="dance-fit.jpg" alt="Dance Fit Throwback 2026 event poster"><div><h3>Dance Fit Throwback 2026</h3><p>Dance fitness with Candice and Mihiri and music by DJ Niranjan, in aid of Child Protection Force.</p><p>21 November 2026 · 5–9 p.m.<br>Earl’s Court, Cinnamon Lakeside</p><p>No dance experience needed. Join at your own pace. Minimum contribution LKR 2,500, with all proceeds going to Child Protection Force.</p>'+a('Watch the Instagram reel','https://www.instagram.com/reel/Df4IBm3N2e2/','btn')+'</div></div>'
@@ -142,7 +145,7 @@ for key,(title,body) in pages.items():
  footer_menu=''.join(a(label,url+'.html') for label,url in nav if url!='donate')
  search_title, search_description = search_metadata[key]
  canonical = canonical_url(key)
- stylesheet = "style.css?v=10"
+ stylesheet = "style.css?v=11" if key == "index" else "style.css?v=10"
  (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(search_title)}</title><meta name="description" content="{escape(search_description)}"><link rel="canonical" href="{canonical}"><link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"><link rel="stylesheet" href="{stylesheet}"><script src="/analytics.js" defer></script><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer class="site-footer" id="site-footer">
 <div class="wrap footer-main">
   <div class="footer-brand">

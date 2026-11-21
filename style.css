@@ -225,3 +225,39 @@ footer{background:var(--ink);color:var(--paper);border-top:6px solid var(--gold)
     grid-template-columns: 1fr;
   }
 }
+
+.hero-visual {
+  position: relative;
+  min-width: 0;
+}
+.hero-logo {
+  position: absolute;
+  inset: 0 0 auto;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1.45;
+  border-radius: 24px;
+  background: var(--paper);
+  opacity: 0;
+  pointer-events: none;
+  animation: hero-logo-crossfade 10s infinite;
+}
+.hero-logo img {
+  display: block;
+  width: 52%;
+  height: auto;
+}
+@keyframes hero-logo-crossfade {
+  0%, 44%, 100% { opacity: 0; }
+  50%, 94% { opacity: 1; }
+}
+@media (max-width: 640px) {
+  .hero-logo {
+    right: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo {
+    display: none;
+  }
+}
