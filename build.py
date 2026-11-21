@@ -81,7 +81,29 @@ programme_updates=section('Training and community outreach','<div class="grid ou
 for key in ('index','services','media'):
  title,body=pages[key]
  pages[key]=(title,body+programme_updates.replace('<section class="wrap">','<section class="wrap" id="outreach">',1))
+search_metadata = {
+ 'index': ('Child Protection Force Sri Lanka | Legal Aid and Safe Shelter', 'Child Protection Force supports children and women in Sri Lanka through legal aid, emergency shelter, and trauma-informed care.'),
+ 'about': ('About Child Protection Force Sri Lanka', 'Learn how Child Protection Force works to improve safety, care, and access to justice for children and women in Sri Lanka.'),
+ 'services': ('Child Protection Services in Sri Lanka | Child Protection Force', 'Explore legal aid, emergency shelter, psychosocial care, and practical reintegration support offered by Child Protection Force.'),
+ 'causes': ('Causes We Support | Child Protection Force Sri Lanka', 'Learn how to support Safe House Meththa, shelter operations, legal casework, and therapy and reintegration in Sri Lanka.'),
+ 'team': ('Our Team | Child Protection Force Sri Lanka', 'Meet the board and founding members of Child Protection Force and learn about the team behind its work in Sri Lanka.'),
+ 'media': ('Media and Publications | Child Protection Force Sri Lanka', 'Explore news, publications, campaign updates, and child protection training and outreach from Child Protection Force.'),
+ 'contact': ('Contact Child Protection Force | Battaramulla, Sri Lanka', 'Contact Child Protection Force in Battaramulla. Find office directions, telephone numbers, email addresses, and an enquiry form.'),
+ 'donate': ('Donate to Child Protection Force Sri Lanka', 'Support child protection in Sri Lanka. Find bank transfer details, confirm a donation, give supplies, or volunteer with Child Protection Force.'),
+}
+def canonical_url(key):
+ return BASE if key == 'index' else BASE + key + '.html'
+
 for key,(title,body) in pages.items():
  menu=''.join(a(label,url+'.html','btn' if url=='donate' else '') for label,url in nav)
+ search_title, search_description = search_metadata[key]
+ canonical = canonical_url(key)
  stylesheet = "style.css?v=8" if key in ("contact", "donate") else "style.css?v=5" if key in ("index", "services", "media") else "style.css"
- (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Child Protection Force</title><link rel="stylesheet" href="{stylesheet}"><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer><div class="wrap foot"><div><h2>Child Protection Force</h2>{contact}</div><div><h3>Explore</h3><p class="social-links"><a class="social-instagram" href="https://www.instagram.com/childprotectionforce.sl/"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a> <a class="social-facebook" href="https://www.facebook.com/childprotectionforce/"><svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M14 22v-9h3l.45-3.5H14V7.3c0-1 .26-1.65 1.72-1.65h1.83V2.5a24 24 0 0 0-2.67-.14c-2.64 0-4.45 1.61-4.45 4.58V9.5H7.45V13h2.98v9z"/></svg>Facebook</a></p><nav aria-label="Footer navigation">{menu}</nav></div></div></footer></body></html>''')
+ (P/(key+'.html')).write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(search_title)}</title><meta name="description" content="{escape(search_description)}"><link rel="canonical" href="{canonical}"><link rel="stylesheet" href="{stylesheet}"><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap top"><a class="brand" href="index.html"><img src="logo.png" alt=""><span>Child Protection<br>Force</span></a><nav aria-label="Main navigation">{menu}</nav></div></header><main id="main">{body}</main><footer><div class="wrap foot"><div><h2>Child Protection Force</h2>{contact}</div><div><h3>Explore</h3><p class="social-links"><a class="social-instagram" href="https://www.instagram.com/childprotectionforce.sl/"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a> <a class="social-facebook" href="https://www.facebook.com/childprotectionforce/"><svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M14 22v-9h3l.45-3.5H14V7.3c0-1 .26-1.65 1.72-1.65h1.83V2.5a24 24 0 0 0-2.67-.14c-2.64 0-4.45 1.61-4.45 4.58V9.5H7.45V13h2.98v9z"/></svg>Facebook</a></p><nav aria-label="Footer navigation">{menu}</nav></div></div></footer></body></html>''')
+
+(P/'sitemap.xml').write_text(
+ '<?xml version="1.0" encoding="UTF-8"?>\n'
+ '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+ + ''.join(f'  <url><loc>{canonical_url(key)}</loc></url>\n' for key in pages)
+ + '</urlset>\n', encoding='utf-8')
+(P/'robots.txt').write_text(f'User-agent: *\nDisallow: /admin.html\nSitemap: {BASE}sitemap.xml\n', encoding='utf-8')
